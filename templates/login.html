@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Tracker Go</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
+</head>
+    <body>
+        <div class="navtable">
+            <nav>
+                <table>
+                    <tr>
+                        <td><a href="{{ url_for('index') }}"> Home</a></td>
+                        <td><a href="{{ url_for('get_notes') }}"> My Notes</a></td>
+                        <td><a href="{{ url_for('new_note') }}">Add Note</a></td>
+                    </tr>
+                    <!--{% if user %} -->
+                    <tr>
+                        <td><a href="{{ url_for('logout') }}">Logout</a></td>
+                    </tr>
+                    <!--{% else %}-->
+                    <tr>
+                        <td><a href="{{ url_for('login') }}">Sign In</a></td>
+                        <td><a href="{{ url_for('register') }}">Register</a></td>
+                    </tr>
+                    <!--{% endif %}-->
+                </table>
+            </nav>
+        </div>
+
+        <h1>Welcome <!--{% if user %}{{user}}{% endif %}-->to Event Tracker Go!</h1>
+
+        <h2>Use this site to maintain and organize your events.</h2>
+        <!--<div class="formwrapper">
+            <h2 class="title">Login</h2>
+            <form method="POST" action="/login">
+                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                    {% if form.email.errors %}
+                    <ul class="errors">
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                    {% if form.password.errors %}
+                    <ul class="errors">
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit }}
+            </form>
+        </div>
+        -->
+    </body>
+</html>
