@@ -1,1 +1,1 @@
-Test pushing to remote repository
+This is the repository for the Group Ten 3155 Scheduling Application Project
