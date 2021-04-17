@@ -1,6 +1,8 @@
 # APPlICATION FILE FOR 3155 PROJECT
 
 import os  # os is used to get environment variables IP & PORT
+
+import bcrypt
 from flask import Flask, redirect, url_for  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request
