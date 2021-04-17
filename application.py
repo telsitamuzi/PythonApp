@@ -7,12 +7,19 @@ from flask import Flask, redirect, url_for  # Flask is the web app that we will 
 from flask import render_template
 from flask import request
 from database import db
+from models import user
+from models import event
+from models import RSVP
+from models import rating
+from forms import RegisterForm
+from flask import session
 
 
 app = Flask(__name__)  # create an app
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_project_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
+app.config['SECRET_KEY'] = 'SE3155'
 
 db.init_app(app) # initializes database
 
