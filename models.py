@@ -5,11 +5,13 @@ class User(db.Model):
     password = db.Column("password", db.String(100))
     fName = db.Column("fName", db.String(20))
     lName = db.Column("lName", db.String(30))
+    email = db.Column("email", db.String(50))
 
-    def __init__(self, password, fName, lName):
+    def __init__(self, password, fName, lName, email):
         self.password = password
         self.fName - fName
         self.lName = lName
+        self.email = email
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
