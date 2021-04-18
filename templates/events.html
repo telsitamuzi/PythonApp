@@ -14,9 +14,16 @@
             <a href="/events"> My Events </a>
         </nav>
 
-        <nav>
-            <a href="{{ url_for('logout')}}">logout</a>
-        </nav>
+         {% if user %}
+            <nav>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+         {% else %}
+            <nav>
+                <a href="{{ url_for('login') }}">Sign In</a> ||
+                <a href="{{ url_for('register') }}">Register</a>
+            </nav>
+         {% endif %}
         <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
         <h1>Listing Current Events</h1>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Event Tracker Go</title>
+    <title>Event Tracking App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
 </head>
@@ -15,24 +15,24 @@
                         <td><a href="{{ url_for('get_notes') }}"> My Notes</a></td>
                         <td><a href="{{ url_for('new_note') }}">Add Note</a></td>
                     </tr>
-                    <!--{% if user %} -->
+                    {% if user %}
                     <tr>
                         <td><a href="{{ url_for('logout') }}">Logout</a></td>
                     </tr>
-                    <!--{% else %}-->
+                    {% else %}
                     <tr>
                         <td><a href="{{ url_for('login') }}">Sign In</a></td>
                         <td><a href="{{ url_for('register') }}">Register</a></td>
                     </tr>
-                    <!--{% endif %}-->
+                    {% endif %}
                 </table>
             </nav>
         </div>
 
-        <h1>Welcome <!--{% if user %}{{user}}{% endif %}-->to Event Tracker Go!</h1>
+        <h1>Welcome {% if user %}{{user}}{% endif %} to Event Tracking App!</h1>
 
         <h2>Use this site to maintain and organize your events.</h2>
-        <!--<div class="formwrapper">
+        <div class="formwrapper">
             <h2 class="title">Login</h2>
             <form method="POST" action="/login">
                 <div class="form-field">{{ form.email.label }} {{ form.email }}
@@ -56,6 +56,5 @@
                 {{ form.submit }}
             </form>
         </div>
-        -->
     </body>
 </html>
