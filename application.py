@@ -12,6 +12,7 @@ from models import Event as Event
 from models import RSVP as RSVP
 from models import Rating as Rating
 from forms import RegisterForm
+from forms import LoginForm
 from flask import session
 
 
@@ -152,14 +153,14 @@ def update_event(event_id):
             event.title = title
             event.text = text
             # update event in DB
-            db.session.add(event)
+            db.session.add(Event)
             db.session.commit()
             return redirect(url_for('get_events'))
         else:
             # GET request - show new event form to edit event
 
             # retrieve event from database
-            my_event = db.session.query(Note).filter_by(id=note_id).one()
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
 
             return render_template('new.html', event=my_event, user=session['user'])
     else:
@@ -180,5 +181,9 @@ def delete_event(event_id):
     else:
         # user is not in session redirect to login
         return redirect(url_for('login'))
+
+@app.route('/unfinished')
+def not_done_yet():
+    return render_template('not_done_yet.html')
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
