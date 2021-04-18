@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Notes App">
+        <title>UNCC Notes App - New Note</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+
+    <nav>
+        <a href="{{ url_for('index') }}"> Home</a> ||
+        <a href="{{ url_for('get_events') }}">Events</a> ||
+        <a href="{{ url_for('new_event') }}">Create Event</a>
+    </nav>
+
+    <nav>
+        <a href="/unfinished">Logout</a>
+    </nav>
+
+        <h1>Welcome {{user}} to the 49er Notes App!</h1>
+    {% if note %}
+        <form action="{{ url_for('update_event', note_id = event.id) }}" method="post">
+    {% else %}
+        <form action="new" method="post">
+    {% endif %}
+           <p><label>Title </label></p>
+            <p><input type="text" name="event_name" value="{% if event %} {{event.event_name}} {% endif %}"/></p>
+            <p><label>Description </label></p>
+            <p>
+                <textarea name="event_description"  rows="6" cols="0">
+                    {% if note %}
+                        {{event.event_details}}
+                    {% else %}
+                        Add the description here ...
+                    {% endif %}
+                </textarea>
+            </p>
+
+            <p><label>Start Date </label></p>
+            <p><input type="text" name="start_date" value="{% if event %} {{event.start_date}} {% endif %}"/></p>
+
+            <p><label>End Date </label></p>
+            <p><input type="text" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
+
+
+
+
+            <p>
+                {% if note %}
+                    <input type="submit" value="Update Event"/>
+                {% else %}
+                    <input type="submit" value="Create Event"/>
+                {% endif %}
+            </p>
+        </form>
+    </body>
+</html>
