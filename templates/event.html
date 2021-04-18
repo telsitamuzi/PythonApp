@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Events App">
+        <title>UNCC Events App - View your Event</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+        <nav>
+            <a href="{{ url_for('index') }}"> Home</a> ||
+            <a href="/events"> My events </a>
+        </nav>
+
+        {% if event.comments %}
+            {% if event.comments|length > 0 %}
+                <h2>Comments</h2>
+                <ul>
+                {% for comment in note.comments %}
+                    <li>{{ comment.content }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+        <form action="{{ url_for('new_comment', event_id=event.id) }}" method="post">
+            <div class="formwrapper">
+        <h2 class="title">Add an Event</h2>
+            <div class="form-field">
+            {{ form.comment.label }} <br/> {{ form.comment }}
+            </div>
+            {{ form.submit }}
+            </div>
+        </form>
+
+
+        <nav>
+            <a href="{{ url_for('logout')}}">logout</a>
+        </nav>
+        <h1>Welcome {{user}} to the Event Scheduling App!</h1>
+
+        <h1>Event details</h1>
+
+        <table>
+            <tr>
+                <th>Event Title</th>
+                <th>Text</th>
+                <th>Event Date</th>
+            </tr>
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.text }}</td>
+                <td>{{ event.date }}</td>
+            </tr>
+        </table>
+    </body>
+</html>
