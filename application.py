@@ -7,10 +7,10 @@ from flask import Flask, redirect, url_for  # Flask is the web app that we will 
 from flask import render_template
 from flask import request
 from database import db
-from models import user
-from models import event
-from models import RSVP
-from models import rating
+from models import User as User
+from models import Event as Event
+from models import RSVP as RSVP
+from models import Rating as Rating
 from forms import RegisterForm
 from flask import session
 
