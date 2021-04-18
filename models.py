@@ -30,12 +30,14 @@ class Event(db.Model):
 
 class RSVP(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
+    user_id = db.Column("user_id", db.Integer)
     event_id = db.Column("event_id", db.Integer)
     date_registered =  db.Column("date_registered", db.String(100))
     status = db.Column("status", db.Boolean, default=False, nullable=False)
 
-    def __init__(self, event_id, date_registered, status):
+    def __init__(self, user_id, event_id, date_registered, status):
         self.event_id = event_id
+        self.user_id = user_id
         self.date_registered = date_registered
         self.status = status
 
