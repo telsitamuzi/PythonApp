@@ -9,20 +9,20 @@ class User(db.Model):
 
     def __init__(self, password, fName, lName, email):
         self.password = password
-        self.fName - fName
+        self.fName = fName
         self.lName = lName
         self.email = email
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    creator_id = db.Column("creator_id", db.Integer, foreign_key=True)
+    user_id = db.Column("creator_id", db.Integer, foreign_key=True)
     event_name = db.Column("event_name", db.String(100))
     start_date = db.Column("start_date", db.String(100))
     end_date = db.Column("end_date", db.String(100))
     event_details = db.Column("event_details", db.String(100))
 
-    def __init__(self, creator_id, event_name, start_date, end_date, event_details):
-        self.creator_id = creator_id
+    def __init__(self, user_id, event_name, start_date, end_date, event_details):
+        self.user_id = user_id
         self.event_name = event_name
         self.start_date = start_date
         self.end_date = end_date
