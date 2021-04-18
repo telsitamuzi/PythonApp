@@ -16,7 +16,7 @@
 
             {% if user %}
                 <nav>
-                    <a href="/unfinished">Logout</a>
+                    <a href="{{ url_for('logout')}}">Logout</a>
                 </nav>
             {% else %}
                 <nav>

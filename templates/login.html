@@ -17,7 +17,7 @@
                     </tr>
                     {% if user %}
                     <tr>
-                        <td><a href="/unfinished">Logout</a></td>
+                        <td><a href="{{ url_for('logout')}}">Logout</a></td>
                     </tr>
                     {% else %}
                     <tr>
