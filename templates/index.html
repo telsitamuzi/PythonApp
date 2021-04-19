@@ -8,26 +8,30 @@
         <!-- styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
-    <body>
+    <body> 
+		<nav>
+		<table>
+				<tr>
+                    <td><a href="{{ url_for('index') }}"> Home</a></td>
+                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
+                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
+                </tr>
+                {% if user %}
+                <tr>
+                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
+                    <td><a href="{{ url_for('register') }}">Register</a></td>
+                </tr>
+                {% endif %}
+        </table>
+    </nav>
 
         <h1>Welcome {{user}} to the Event Page!</h1>
 
         <h2>Use this site to maintain and organize your events.</h2>
-
-    {% if user %}
-        <nav>
-            <a href="{{ url_for('logout') }}"> Logout</a>
-            <a href="{{ url_for('new_event') }}">Create an Event</a>
-            <a href="{{ url_for('get_events') }}">Events</a>
-        </nav>
-    {% else %}
-        <nav>
-            <a href="{{ url_for('login') }}">Sign In</a> ||
-            <a href="{{ url_for('register') }}">Register</a>
-            <a href="{{ url_for('new_event') }}">Create an Event</a>
-        </nav>
-
-    {% endif %}
 
 
         <h3>Create an Event</h3>

@@ -8,23 +8,25 @@
 </head>
     <body>
         <div class="navdiv">
-
-            <nav>
-                <a href="{{ url_for('index') }}"> Home</a> ||
-                <a href="{{ url_for('get_events') }}"> My Events</a>
-            </nav>
-
-            {% if user %}
-                <nav>
-                    <a href="{{ url_for('logout')}}">Logout</a>
-                </nav>
-            {% else %}
-                <nav>
-                    <a href="{{ url_for('login') }}">Sign In</a> ||
-                    <a href="{{ url_for('register') }}">Register</a>
-                </nav>
-            {% endif %}
-
+		<nav>
+		<table>
+				<tr>
+                    <td><a href="{{ url_for('index') }}"> Home</a></td>
+                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
+                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
+                </tr>
+                {% if user %}
+                <tr>
+                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
+                    <td><a href="{{ url_for('register') }}">Register</a></td>
+                </tr>
+                {% endif %}
+        </table>
+    </nav>
         </div>
         <h1>Welcome {% if user %}{{user}}{% endif %}to the Event Scheduling App!</h1>
 
