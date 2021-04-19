@@ -15,7 +15,7 @@ class User(db.Model):
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    user_id = db.Column("creator_id", db.Integer, foreign_key=True)
+    user_id = db.Column("user_id", db.Integer, foreign_key=True)
     event_name = db.Column("event_name", db.String(100))
     start_date = db.Column("start_date", db.String(100))
     end_date = db.Column("end_date", db.String(100))
