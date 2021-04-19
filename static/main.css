@@ -3,8 +3,10 @@ body {
     }
 h1{
     color:blue;
+    text-align: center;
 }
 h2{
     color:gold;
     background:blue;
+    text-align: center;
 }
