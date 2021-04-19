@@ -10,13 +10,24 @@
 </head>
 <body>
 <nav>
-    <a href="{{ url_for('index') }}"> Home</a> ||
-    <a href="/events"> My events </a>
-</nav>
-
-<nav>
-    <a href="{{ url_for('logout')}}">logout</a>
-</nav>
+		<table>
+				<tr>
+                    <td><a href="{{ url_for('index') }}"> Home</a></td>
+                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
+                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
+                </tr>
+                {% if user %}
+                <tr>
+                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
+                    <td><a href="{{ url_for('register') }}">Register</a></td>
+                </tr>
+                {% endif %}
+        </table>
+    </nav>
 <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
 <h1>Your Event</h1>

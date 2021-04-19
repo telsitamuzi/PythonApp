@@ -156,10 +156,14 @@ def update_event(event_id):
             event_name = request.form['event_name']
             # get event data
             event_details = request.form['event_details']
+            start_date = request.form['start_date']
+            end_date = request.form['end_date']
             event = db.session.query(Event).filter_by(id=event_id).one()
             # update note data
             event.event_name = event_name
             event.event_details = event_details
+            event.start_date = start_date
+            event.end_date = end_date
             # update event in DB
             db.session.add(event)
             db.session.commit()
