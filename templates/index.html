@@ -17,6 +17,8 @@
     {% if user %}
         <nav>
             <a href="{{ url_for('logout') }}"> Logout</a>
+            <a href="{{ url_for('new_event') }}">Create an Event</a>
+            <a href="{{ url_for('get_events') }}">Events</a>
         </nav>
     {% else %}
         <nav>
