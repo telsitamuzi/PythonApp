@@ -19,18 +19,20 @@
         </nav>
         <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
-        <h1>Event details</h1>
+        <h1>Your Event</h1>
 
         <table>
             <tr>
-                <th>Event Title</th>
-                <th>Text</th>
-                <th>Event Date</th>
+                <th>Event Name</th>
+                <th>Event Details</th>
+                <th>Event Start Date</th>
+                <th>Event End Date</th>
             </tr>
             <tr>
-                <td>{{ event.title }}</td>
-                <td>{{ event.text }}</td>
-                <td>{{ event.date }}</td>
+                <td>{{ event.event_name }}</td>
+                <td>{{ event.event_details }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
             </tr>
         </table>
     </body>
