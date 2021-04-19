@@ -113,7 +113,7 @@ def get_event(event_id):
         my_event = db.session.query(Event).filter_by(id=event_id, user_id=session['user_id']).one()
 
         # create a comment form object
-        
+
 
         return render_template('event.html', event=my_event, user=session['user'])
     else:
@@ -153,13 +153,13 @@ def update_event(event_id):
         # check method used for request
         if request.method == 'POST':
             # get title data
-            title = request.form['title']
+            event_name = request.form['event_name']
             # get event data
-            text = request.form['eventText']
+            event_details = request.form['event_detials']
             event = db.session.query(Event).filter_by(id=event_id).one()
             # update note data
-            event.title = title
-            event.text = text
+            event.event_name = event_name
+            event.event_details = event_details
             # update event in DB
             db.session.add(Event)
             db.session.commit()
