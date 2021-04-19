@@ -113,7 +113,7 @@ def get_event(event_id):
         my_event = db.session.query(Event).filter_by(id=event_id, user_id=session['user_id']).one()
 
         # create a comment form object
-        form = CommentForm()
+        # form = CommentForm()
 
         return render_template('event.html', event=my_event, user=session['user'], form=form)
     else:
@@ -126,15 +126,15 @@ def new_event():
         # check method used for request
         if request.method == 'POST':
             # get title data
-            title = request.form['title']
+            event_name = request.form['event_name']
             # get note data
-            text = request.form['noteText']
-            # create date stamp
-            from datetime import date
-            today = date.today()
-            # format date mm/dd/yyyy
-            today = today.strftime("%m-%d-%Y")
-            new_record = Event(title, text, today, session['user_id'])
+            event_details = request.form['event_details']
+            # get event start date
+            start_date = request.form['start_date']
+            #get event end date
+            end_date = request.form['end_date']
+
+            new_record = Event(session['user_id'], event_name, event_details, start_date, end_date)
             db.session.add(new_record)
             db.session.commit()
 
