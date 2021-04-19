@@ -113,9 +113,9 @@ def get_event(event_id):
         my_event = db.session.query(Event).filter_by(id=event_id, user_id=session['user_id']).one()
 
         # create a comment form object
-        # form = CommentForm()
+        
 
-        return render_template('event.html', event=my_event, user=session['user'], form=form)
+        return render_template('event.html', event=my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
 
