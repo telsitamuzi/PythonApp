@@ -21,7 +21,7 @@ class Event(db.Model):
     end_date = db.Column("end_date", db.String(100))
     event_details = db.Column("event_details", db.String(100))
 
-    def __init__(self, user_id, event_name, start_date, end_date, event_details):
+    def __init__(self, user_id, event_name, event_details, start_date, end_date):
         self.user_id = user_id
         self.event_name = event_name
         self.start_date = start_date
