@@ -21,7 +21,7 @@
     </nav>
 
         <h1>Welcome {{user}} to the Event Tracker!</h1>
-    {% if note %}
+    {% if event %}
         <form action="{{ url_for('update_event', note_id = event.id) }}" method="post">
     {% else %}
         <form action="new" method="post">
