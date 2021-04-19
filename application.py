@@ -155,7 +155,7 @@ def update_event(event_id):
             # get title data
             event_name = request.form['event_name']
             # get event data
-            event_details = request.form['event_detials']
+            event_details = request.form['event_details']
             event = db.session.query(Event).filter_by(id=event_id).one()
             # update note data
             event.event_name = event_name
