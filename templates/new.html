@@ -30,7 +30,7 @@
             <p><input type="text" name="event_name" value="{% if event %} {{event.event_name}} {% endif %}"/></p>
             <p><label>Description </label></p>
             <p>
-                <textarea name="event_description"  rows="6" cols="0">
+                <textarea name="event_details"  rows="6" cols="0">
                     {% if note %}
                         {{event.event_details}}
                     {% else %}
