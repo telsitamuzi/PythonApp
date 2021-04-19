@@ -163,7 +163,7 @@ def update_event(event_id):
             event.event_name = event_name
             event.event_details = event_details
             event.start_date = start_date
-            event.start_date = end_date
+            event.end_date = end_date
             # update event in DB
             db.session.add(event)
             db.session.commit()
