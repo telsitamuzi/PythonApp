@@ -161,7 +161,7 @@ def update_event(event_id):
             event.event_name = event_name
             event.event_details = event_details
             # update event in DB
-            db.session.add(Event)
+            db.session.add(event)
             db.session.commit()
             return redirect(url_for('get_events'))
         else:
