@@ -20,13 +20,15 @@ class Event(db.Model):
     start_date = db.Column("start_date", db.String(100))
     end_date = db.Column("end_date", db.String(100))
     event_details = db.Column("event_details", db.String(100))
+    public = db.Column("public", db.Boolean)
 
-    def __init__(self, user_id, event_name, event_details, start_date, end_date):
+    def __init__(self, user_id, event_name, event_details, start_date, end_date, public):
         self.user_id = user_id
         self.event_name = event_name
         self.start_date = start_date
         self.end_date = end_date
         self.event_details = event_details
+        self.public = public
 
 class RSVP(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
