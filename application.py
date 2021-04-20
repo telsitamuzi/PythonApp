@@ -116,7 +116,7 @@ def get_event(event_id):
     # check if a user is saved in session
     if session.get('user'):
         # retrieve event from database
-        my_event = db.session.query(Event).filter_by(id=event_id, user_id=session['user_id']).one()
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
 
         # create a comment form object
 
@@ -218,5 +218,42 @@ def delete_event(event_id):
 @app.route('/unfinished')
 def not_done_yet():
     return render_template('not_done_yet.html')
+
+@app.route('/rsvp/<event_id>', methods=['GET', 'POST'])
+def rsvp(event_id):
+
+
+    # check if user is signed in
+    if session.get('user'):
+
+        # checks if form response is of type POST
+        if request.method == 'POST':
+            user_id=session['user_id']
+
+            # get date RSVPed
+            from datetime import datetime
+            rsvp_date = datetime.now()
+
+            # get response to if the user is attending
+            status_str = request.form['status'].strip()
+            status = (status_str == "Y")
+
+            # create RSVP object with given data
+
+            rsvp = RSVP(user_id, event_id, rsvp_date, status)
+
+
+            # add new RSVP object to database
+            db.session.add(rsvp)
+            db.session.commit()
+
+            # redirects back to events page ((may implement a success page))
+            return redirect(url_for('get_events'))
+        else:
+            # redirects user to blank form if method type is GET
+            return render_template('rsvp.html')
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)

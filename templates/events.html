@@ -68,10 +68,16 @@
              </tr>
 
              {% for public_event in public_events %}
-
+           <tr>
                 <td><a href="{{ url_for('get_event', event_id=public_event.id) }}">{{ public_event.event_name }}</a></td>
                 <td>{{ public_event.start_date }}</td>
                 <td>{{ public_event.end_date }}</td>
+               <td>
+                   <a href="{{ url_for('rsvp', event_id=public_event.id) }}">
+                       <input type="submit" value="RSVP"/>
+                   </a>
+               </td>
+           </tr>
              {% endfor %}
 
 
