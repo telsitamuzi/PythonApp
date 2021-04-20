@@ -107,9 +107,7 @@ def get_events():
         public_and_unique = list(public_set - my_set)
 
 
-        all_visible_events = my_events + public_and_unique
-
-        return render_template('events.html', events=all_visible_events, user=session['user'])
+        return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique)
     else:
         return redirect(url_for('login'))
 

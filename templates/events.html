@@ -30,7 +30,7 @@
     </nav>
         <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
-        <h1>Listing Current Events</h1>
+        <h2>My Events</h2>
 
 
         <table>
@@ -52,7 +52,26 @@
                     </form>
                 </td>
             </tr>
+
             {% endfor %}
+        </table>
+
+        <h2>Public Events From Other Users</h2>
+       <table>
+             <tr>
+                <th>Event Title</th>
+                <th>Event Start Date</th>
+                <th>Event End Date</th>
+             </tr>
+
+             {% for public_event in public_events %}
+
+                <td><a href="{{ url_for('get_event', event_id=public_event.id) }}">{{ public_event.event_name }}</a></td>
+                <td>{{ public_event.start_date }}</td>
+                <td>{{ public_event.end_date }}</td>
+             {% endfor %}
+
+
         </table>
     </body>
 </html>
