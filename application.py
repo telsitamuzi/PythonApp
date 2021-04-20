@@ -100,8 +100,16 @@ def get_events():
     if session.get('user'):
         # retrieve events from database
         my_events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
+        public_events = db.session.query(Event).filter_by(public=True).all()
 
-        return render_template('events.html', events=my_events, user=session['user'])
+        my_set = set(my_events)
+        public_set = set(public_events)
+        public_and_unique = list(public_set - my_set)
+
+
+        all_visible_events = my_events + public_and_unique
+
+        return render_template('events.html', events=all_visible_events, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -134,7 +142,10 @@ def new_event():
             #get event end date
             end_date = request.form['end_date']
 
-            new_record = Event(session['user_id'], event_name, event_details, start_date, end_date)
+            public_str = request.form['public']
+            public = (public_str == 'Y')
+
+            new_record = Event(session['user_id'], event_name, event_details.strip(), start_date, end_date, public)
             db.session.add(new_record)
             db.session.commit()
 
@@ -158,12 +169,24 @@ def update_event(event_id):
             event_details = request.form['event_details']
             start_date = request.form['start_date']
             end_date = request.form['end_date']
+
+            # cehcks updates to public / private
+            public_str = request.form['public']
+            public_str = public_str.strip()
+            public = (public_str == 'Y')
+
+            #get event
             event = db.session.query(Event).filter_by(id=event_id).one()
+
+
             # update note data
-            event.event_name = event_name
-            event.event_details = event_details
-            event.start_date = start_date
-            event.end_date = end_date
+            # also removes leading whitespace from form input
+            event.event_name = event_name.strip()
+            event.event_details = event_details.strip()
+            event.start_date = start_date.strip()
+            event.end_date = end_date.strip()
+            event.public = public
+
             # update event in DB
             db.session.add(event)
             db.session.commit()

@@ -54,6 +54,13 @@
             <p><label>End Date </label></p>
             <p><input type="text" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
 
+            <p><label>Is this Event Public? Y/N</label></p>
+            <p><input type="text" name="public" value="{% if event %}
+                {% if event.public %} Y
+                {% else %} N
+                {% endif %}
+            {% endif %}"/></p>
+
 
 
 
