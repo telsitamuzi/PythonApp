@@ -30,21 +30,20 @@
     </nav>
 <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
-<h1>Your Event</h1>
+<h2 style="color: gold; background-color: blue; text-align: center;">{{ event.event_name }}</h2>
 
-<table>
-    <tr>
-        <th>Event Name</th>
-        <th>Event Details</th>
-        <th>Event Start Date</th>
-        <th>Event End Date</th>
-    </tr>
-    <tr>
-        <td>{{ event.event_name }}</td>
-        <td>{{ event.event_details }}</td>
-        <td>{{ event.start_date }}</td>
-        <td>{{ event.end_date }}</td>
-    </tr>
-</table>
+<div style="text-align: center;">
+    <h3>{{ event.event_details }}</h3>
+    <h3>Event Starts: {{ event.start_date }}</h3>
+    <h3>Event Ends: {{ event.end_date }}</h3>
+    <h3>This event is {% if not event.public %}<em> NOT </em>{% endif %} public</h3>
+</div>
+
+<h2 style="color: gold; background-color: blue; text-align: center;">See Who's Going</h2>
+
+{% for rsvp in rsvps %}
+    <h3 style="text-align: center;">{{ rsvp.user_name }} is {% if not rsvp.status %} <em>NOT</em> {% endif %} attending</h3>
+{% endfor %}
+
 </body>
 </html>

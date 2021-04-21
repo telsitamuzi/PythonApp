@@ -117,11 +117,12 @@ def get_event(event_id):
     if session.get('user'):
         # retrieve event from database
         my_event = db.session.query(Event).filter_by(id=event_id).one()
+        my_rsvps = db.session.query(RSVP).filter_by(event_id=event_id)
 
         # create a comment form object
 
 
-        return render_template('event.html', event=my_event, user=session['user'])
+        return render_template('event.html', event=my_event, rsvps=my_rsvps, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -239,8 +240,10 @@ def rsvp(event_id):
             status = (status_str == "Y")
 
             # create RSVP object with given data
+            rsvp_user=db.session.query(User).filter_by(id=session['user_id']).one()
+            user_name = rsvp_user.fName + " " + rsvp_user.lName
 
-            rsvp = RSVP(user_id, event_id, rsvp_date, status)
+            rsvp = RSVP(user_id, user_name, event_id, rsvp_date, status)
 
 
             # add new RSVP object to database
