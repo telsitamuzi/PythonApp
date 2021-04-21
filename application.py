@@ -250,8 +250,10 @@ def rsvp(event_id):
             # redirects back to events page ((may implement a success page))
             return redirect(url_for('get_events'))
         else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+
             # redirects user to blank form if method type is GET
-            return render_template('rsvp.html')
+            return render_template('rsvp.html', event=my_event, user=session['user'])
     else:
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
