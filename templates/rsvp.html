@@ -34,7 +34,7 @@
 
        <form action="{{ url_for('rsvp', event_id = event.id) }}" method="POST">
            <p><label>Will You Be Attending? Y/N</label></p>
-           <p><input type="text" name="status" placeholder="Y"></p>
+           <p><input type="text" name="status" placeholder="Y" required></p>
            <p><input type="submit" value="RSVP"></p>
        </form>
 
