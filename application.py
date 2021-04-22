@@ -10,6 +10,7 @@ from database import db
 from models import User as User
 from models import Event as Event
 from models import RSVP as RSVP
+from models import Invite as Invite
 from models import Rating as Rating
 from forms import RegisterForm
 from forms import LoginForm
