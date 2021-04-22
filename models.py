@@ -55,3 +55,11 @@ class Rating(db.Model):
         self.user_id = user_id
         self.event_id = event_id
         self.like_status = like_status
+
+class Invite(db.Model):
+    user_email = db.Column("user_email", db.String(50))
+    event_id = db.column("event_id", db.Integer())
+
+    def __init__(self, user_email, event_id):
+        self.user_email = user_email
+        self.event_id = event_id
