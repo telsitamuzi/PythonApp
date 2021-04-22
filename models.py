@@ -57,6 +57,7 @@ class Rating(db.Model):
         self.like_status = like_status
 
 class Invite(db.Model):
+    id = db.Column("id", db.Integer, primary_key=True)
     user_email = db.Column("user_email", db.String(50))
     event_id = db.column("event_id", db.Integer())
 
