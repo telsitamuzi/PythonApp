@@ -10,6 +10,21 @@ h2{
     background:blue;
     text-align: center;
 }
-button {
-    center;
+
+.inputButton {
+  display: block;
+  margin-top: .5%;
+  margin-bottom: 1%;
+  margin-right: 1%;
+  margin-left: 44%;
 }
+
+button {
+  width: 200px;
+  border-color: 10px black;
+  padding: 10px;
+}
+button:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
