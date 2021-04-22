@@ -9,32 +9,19 @@
         <link rel="stylesheet" href='static/main.css'>
     </head>
     <body> 
-		<nav>
-		<table>
-				<tr>
-                    <td><a href="{{ url_for('index') }}"> Home</a></td>
-                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
-                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
-                </tr>
-                {% if user %}
-                <tr>
-                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
-                    <td><a href="{{ url_for('register') }}">Register</a></td>
-                </tr>
-                {% endif %}
-        </table>
-    </nav>
 
         <h1>Welcome {{user}} to the Event Page!</h1>
 
         <h2>Use this site to maintain and organize your events.</h2>
 
-
-        <h3>Create an Event</h3>
+        {% if user %}
+        <a href="{{ url_for('new_event') }}" class="button"><button type="button">Create Event</button></a><br>
+        <a href="{{ url_for('get_events') }}" class="button"><button type="button">View Event</button></a><br>
+        <a href="{{ url_for('logout') }}" class="button"><button type="button">Logout</button></a><br>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="button"><button type="button">Login</button></a><br>
+        <a href="{{ url_for('register') }}" class="button"><button type="button">Register</button></a><br>
+        {% endif %}
 
 
     </body>
