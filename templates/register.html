@@ -7,34 +7,31 @@
      <link rel="stylesheet" href='static/main.css'>
 </head>
     <body>
-        <div class="navdiv">
+        <div class="nav-table">
 		<nav>
-		<table>
-				<tr>
-                    <td><a href="{{ url_for('index') }}"> Home</a></td>
-                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
-                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
-                </tr>
-                {% if user %}
-                <tr>
-                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
-                    <td><a href="{{ url_for('register') }}">Register</a></td>
-                </tr>
-                {% endif %}
-        </table>
-    </nav>
+
+            <a href="{{ url_for('index') }}"> Home</a>
+            <a href="{{ url_for('get_events') }}">Events</a>
+            <a href="{{ url_for('new_event') }}">Create</a>
+
+            {% if user %}
+
+            <a href="{{ url_for('logout')}}">Logout</a>
+
+            {% else %}
+
+            <a href="{{ url_for('login') }}">Sign In</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+
+        </nav>
         </div>
         <h1>Welcome {% if user %}{{user}}{% endif %}to the Event Scheduling App!</h1>
-
-        <h2>Login to your account!</h2>
         <div class="formwrapper">
-            <h2 class="title">Register</h2>
-            <form method="POST" action="/register">
-                <div class="form-field">{{ form.firstname.label }} {{ form.firstname }}
+            <form class="registration" method="POST" action="/register">
+                <h2 class="title"><strong>Sign Up</strong></h2>
+
+                <div class="form-field"><strong>{{ form.firstname.label }} {{ form.firstname }}</strong>
                     {% if form.firstname.errors %}
                     <ul class="errors">
                         {% for error in form.firstname.errors %}
@@ -43,7 +40,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.lastname.label }} {{ form.lastname }}
+                <div class="form-field"><strong>{{ form.lastname.label }} {{ form.lastname }}</strong>
                     {% if form.lastname.errors %}
                     <ul class="errors">
                         {% for error in form.lastname.errors %}
@@ -52,7 +49,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                <div class="form-field"><strong>{{ form.email.label }} {{ form.email }}</strong>
                     {% if form.email.errors %}
                     <ul class="errors">
                         {% for error in form.email.errors %}
@@ -61,7 +58,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                <div class="form-field"><strong>{{ form.password.label }} {{ form.password }}</strong>
                     {% if form.password.errors %}
                     <ul class="errors">
                         {% for error in form.password.errors %}
@@ -70,7 +67,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
+                <div class="form-field"><strong>{{ form.confirmPassword.label }} {{ form.confirmPassword }}</strong>
                     {% if form.confirmPassword.errors %}
                     <ul class="errors">
                         {% for error in form.confirmPassword.errors %}
