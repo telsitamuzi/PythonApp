@@ -7,25 +7,22 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
 </head>
     <body>
-        <div class="navtable">
+        <div class="nav-table">
             <nav>
-                <table>
-                    <tr>
-                        <td><a href="{{ url_for('index') }}"> Home</a></td>
-                        <td><a href="{{ url_for('get_events') }}">Events</a></td>
-                        <td><a href="{{ url_for('new_event') }}">Create</a></td>
-                    </tr>
+
+                        <a href="{{ url_for('index') }}"> Home</a>
+                        <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('new_event') }}">Create</a>
+
                     {% if user %}
-                    <tr>
-                        <td><a href="{{ url_for('logout')}}">Logout</a></td>
-                    </tr>
+
+                        <a href="{{ url_for('logout')}}">Logout</a>
+
                     {% else %}
-                    <tr>
-                        <td><a href="{{ url_for('login') }}">Sign In</a></td>
-                        <td><a href="{{ url_for('register') }}">Register</a></td>
-                    </tr>
+
+                        <a href="{{ url_for('login') }}">Sign In</a>
+                        <a href="{{ url_for('register') }}">Register</a>
                     {% endif %}
-                </table>
             </nav>
         </div>
 
@@ -33,8 +30,9 @@
 
         <h2>Use this site to maintain and organize your events.</h2>
         <div class="formwrapper">
-            <h2 class="title">Login</h2>
+
             <form method="POST" action="/login">
+                <h2 class="title">Login</h2>
                 <div class="form-field">{{ form.email.label }} {{ form.email }}
                     {% if form.email.errors %}
                     <ul class="errors">
