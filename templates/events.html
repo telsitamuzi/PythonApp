@@ -33,17 +33,17 @@
         <h2>My Events</h2>
 
 
-        <table>
+        <table style="border: 2px solid black; margin: 0 auto">
             <tr>
-                <th>Event Title</th>
-                <th>Event Start Date</th>
-                <th>Event End Date</th>
+                <th style="border: 2px solid black">Event Title</th>
+                <th style="border: 2px solid black">Event Start Date</th>
+                <th style="border: 2px solid black">Event End Date</th>
             </tr>
             {% for event in events %}
             <tr>
-                <td><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
-                <td>{{ event.start_date }}</td>
-                <td>{{ event.end_date }}</td>
+                <td style="border: 2px solid black"><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
+                <td style="border: 2px solid black">{{ event.start_date }}</td>
+                <td style="border: 2px solid black">{{ event.end_date }}</td>
                 <td>
                          <a href="{{ url_for('update_event', event_id=event.id)}}">
                              <input type="submit" value="Edit"/>
@@ -60,11 +60,11 @@
         </table>
 
         <h2>Public Events From Other Users</h2>
-       <table>
+       <table style="border: 2px solid black; margin: 0 auto">
              <tr>
-                <th>Event Title</th>
-                <th>Event Start Date</th>
-                <th>Event End Date</th>
+                <th style="border: 2px solid black">Event Title</th>
+                <th style="border: 2px solid black">Event Start Date</th>
+                <th style="border: 2px solid black">Event End Date</th>
              </tr>
 
              {% for public_event in public_events %}
