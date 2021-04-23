@@ -1,12 +1,74 @@
 body {
     padding: 30px 30px;
-    }
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: beige;
+ }
 h1{
     color:blue;
     text-align: center;
 }
+
 h2{
     color:gold;
     background:blue;
     text-align: center;
+}
+.title{
+    padding-bottom: 50px;
+    margin: 0 auto;
+    display: block;
+    color: black;
+    background:gold;
+}
+
+form{
+    border: 3px solid blue;
+    padding: 1em 5em;
+    margin: 0 auto;
+    width: 250px;
+    background: gold;
+
+}
+
+
+.nav-table {
+  overflow: hidden;
+  background-color: blue;
+}
+
+.nav-table a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  margin-left: 6%;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-table a:hover {
+  background-color: gold;
+  color: black;
+}
+
+
+
+
+input[type=text], input[type=password] {
+  width: 90%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  border: 2px solid blue;
+  background: #f1f1f1;
+}
+
+.submit {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
