@@ -77,6 +77,11 @@
                        <input type="submit" value="RSVP"/>
                    </a>
                </td>
+               <td>
+                   <a href="{{ url_for('rate', event_id=public_event.id) }}">
+                       <input type="submit" value="Rate This Event"/>
+                   </a>
+               </td>
            </tr>
              {% endfor %}
 
