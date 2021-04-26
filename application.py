@@ -119,11 +119,12 @@ def get_event(event_id):
         # retrieve event from database
         my_event = db.session.query(Event).filter_by(id=event_id).one()
         my_rsvps = db.session.query(RSVP).filter_by(event_id=event_id)
+        my_ratings = db.session.query(Rating).filter_by(event_id=event_id)
 
         # create a comment form object
 
 
-        return render_template('event.html', event=my_event, rsvps=my_rsvps, user=session['user'])
+        return render_template('event.html', event=my_event, rsvps=my_rsvps, ratings=my_ratings, user=session['user'])
     else:
         return redirect(url_for('login'))
 

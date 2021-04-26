@@ -44,5 +44,11 @@
     <h3 style="text-align: center;">{{ rsvp.user_name }} is {% if not rsvp.status %} <em>NOT</em> {% endif %} attending</h3>
 {% endfor %}
 
+<h2 style="color: gold; background-color: blue; text-align: center;">Ratings left by Users</h2>
+
+{% for rating in ratings %}
+    <h3 style="text-align: center;">{{ rating.user_name }} left a review of {{ rating.rating_no}} stars.</h3>
+{% endfor %}
+
 </body>
 </html>
