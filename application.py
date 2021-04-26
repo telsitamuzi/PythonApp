@@ -262,4 +262,8 @@ def rsvp(event_id):
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
 
+@app.route('/rate/<event_id>')
+def rate(event_id):
+    return render_template('not_done_yet.html')
+
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
