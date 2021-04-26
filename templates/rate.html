@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Events App">
+        <title>UNCC Events App - Rate</title>
+        <!-- styles -->
+         <link rel="stylesheet" href='../static/main.css'>
+    </head>
+    <body>
+       <nav>
+		<table>
+				<tr>
+                    <td><a href="{{ url_for('index') }}"> Home</a></td>
+                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
+                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
+                </tr>
+                {% if user %}
+                <tr>
+                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
+                    <td><a href="{{ url_for('register') }}">Register</a></td>
+                </tr>
+                {% endif %}
+        </table>
+    </nav>
+        <h1>Welcome {{user}} to the Event Scheduling App!</h1>
+
+        <h2>Rate <em>{{event.event_name}}</em></h2>
+
+       <form action="{{ url_for('rate', event_id = event.id) }}" method="POST">
+           <p><label>Rate this event (1-5)</label></p>
+           <p><input type="number" name="rating" placeholder="1" min="1" max="5" required></p>
+           <p><input type="submit" value="Rate"></p>
+       </form>
+
+    </body>
+</html>

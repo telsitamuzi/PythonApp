@@ -47,14 +47,16 @@ class RSVP(db.Model):
 
 class Rating(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
+    user_name = db.Column("user_name", db.String(51))
     user_id = db.Column("user_id", db.Integer)
     event_id = db.Column("event_id", db.Integer)
-    like_status = db.Column("like_status", db.Boolean)
+    rating_no = db.Column("rating", db.Integer)
 
-    def __init__(self, user_id, event_id, like_status):
+    def __init__(self, user_name, user_id, event_id, rating_no):
+        self.user_name = user_name
         self.user_id = user_id
         self.event_id = event_id
-        self.like_status = like_status
+        self.rating_no = rating_no
 
 class Invite(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)

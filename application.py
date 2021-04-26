@@ -262,8 +262,40 @@ def rsvp(event_id):
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
 
-@app.route('/rate/<event_id>')
+@app.route('/rate/<event_id>', methods=['GET', 'POST'])
 def rate(event_id):
-    return render_template('not_done_yet.html')
+
+    # check if user is signed in
+    if session.get('user'):
+
+        # checks if form response is of type POST
+        if request.method == 'POST':
+            user_id=session['user_id']
+
+
+            # get response to user rating
+            rating_no = request.form['rating']
+
+            # create RSVP object with given data
+            rsvp_user=db.session.query(User).filter_by(id=session['user_id']).one()
+            user_name = rsvp_user.fName + " " + rsvp_user.lName
+
+            rating = Rating(user_name, user_id, event_id, rating_no)
+
+
+            # add new Rating object to database
+            db.session.add(rating)
+            db.session.commit()
+
+            # redirects back to events page ((may implement a success page))
+            return redirect(url_for('get_events'))
+        else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+            # redirects user to blank form if method type is GET
+            return render_template('rate.html', event=my_event, user=session['user'])
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
