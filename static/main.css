@@ -28,7 +28,6 @@ form{
     margin: 0 auto;
     width: 250px;
     background: gold;
-
 }
 
 
@@ -87,9 +86,15 @@ button {
   width: 200px;
   border-color: 10px black;
   padding: 10px;
+  margin-left: 35px;
+  margin-top: 10%;
 }
 button:hover {
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
->>>>>>> 22eaf735016bfb29bb14692eac0c2afdccb7ede4
+#homepage {
+    width: 250px;
+    height: 250px;
+    background-color: #FF7F50;
+}
