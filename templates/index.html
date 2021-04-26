@@ -32,19 +32,19 @@
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
     <div class="numbertext">1 / 3</div>
-    <img src="images/river.jpeg" style="width:100%">
+    <img src="{{ url_for('static', filename='images/river.jpeg') }}" width="100" height="100">
     <div class="text">Caption Text</div>
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">2 / 3</div>
-    <img src="templates/images/forest.jpg" style="width:100%">
+    <img src="{{ url_for('static', filename='images/forest.jpg') }}" width="100" height="100">
     <div class="text">Caption Two</div>
   </div>
 
   <div class="mySlides fade">
     <div class="numbertext">3 / 3</div>
-    <img src="images/bridge.jpeg" style="width:100%">
+    <img src="{{ url_for('static', filename='images/bridge.jpeg') }}" width="100" height="100">
     <div class="text">Caption Three</div>
   </div>
 
