@@ -222,6 +222,12 @@ def delete_event(event_id):
 def not_done_yet():
     return render_template('not_done_yet.html')
 
+@app.route('/share', methods=['POST', 'GET'])
+def share():
+
+    return render_template('share.html')
+
+
 @app.route('/rsvp/<event_id>', methods=['GET', 'POST'])
 def rsvp(event_id):
 

@@ -34,12 +34,14 @@
 
         <table style="border: 2px solid black; margin: 0 auto">
             <tr>
+                <th></th>
                 <th style="border: 2px solid black">Event Title</th>
                 <th style="border: 2px solid black">Event Start Date</th>
                 <th style="border: 2px solid black">Event End Date</th>
             </tr>
             {% for event in events %}
             <tr>
+                <td style="border: 2px solid black"><a id="shareButton" href="{{ url_for('share') }}">Share</a></td>
                 <td style="border: 2px solid black"><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
                 <td style="border: 2px solid black">{{ event.start_date }}</td>
                 <td style="border: 2px solid black">{{ event.end_date }}</td>
