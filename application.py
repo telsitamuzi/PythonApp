@@ -100,8 +100,8 @@ def get_events():
     # check if a user is saved in session
     if session.get('user'):
         # retrieve events from database
-        my_events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
-        public_events = db.session.query(Event).filter_by(public=True).all()
+        my_events = db.session.query(Event).filter_by(user_id=session['user_id']).order_by(Event.id).all()
+        public_events = db.session.query(Event).filter_by(public=True).order_by(Event.id).all()
 
         my_set = set(my_events)
         public_set = set(public_events)
