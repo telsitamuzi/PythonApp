@@ -285,27 +285,28 @@ def edit_rsvp(event_id):
         # checks if form response is of type POST
         if request.method == 'POST':
 
-            user_id = session['user_id']
-
             # get response to if the user is attending
             status_str = request.form['status'].strip()
             status = (status_str == "Y")
 
+            # gets existing RSVP with event id and user id
             rsvp = db.session.query(RSVP).filter_by(event_id= event_id, user_id=session['user_id']).one()
 
+            # updates existing RSVP with new user data
             rsvp.status = status
 
             # commit change to db
             db.session.add(rsvp)
             db.session.commit()
 
-            # redirects back to events page ((may implement a success page))
+            # redirects back to events page
             return redirect(url_for('get_events'))
         else:
+            # gets event and corresponding RSVP
             my_rsvp = db.session.query(RSVP).filter_by(event_id=event_id, user_id=session['user_id'])
             my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-            # redirects user to blank form if method type is GET
+            # redirects user to blank form if method type is GET, passes RSVP with user id and event id
             return render_template('rsvp.html', event=my_event, user=session['user'], rsvp=my_rsvp)
     else:
         # user is not signed in, redirect to sign in
