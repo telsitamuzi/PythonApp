@@ -231,6 +231,8 @@ def rsvp(event_id):
 
         # checks if form response is of type POST
         if request.method == 'POST':
+
+
             user_id=session['user_id']
 
             # get date RSVPed
@@ -255,13 +257,55 @@ def rsvp(event_id):
             # redirects back to events page ((may implement a success page))
             return redirect(url_for('get_events'))
         else:
+
+            # if user has already RSVPed, redirects to edit rsvp
+            if db.session.query(RSVP).filter_by(event_id= event_id, user_id=session['user_id']).count() != 0:
+                return redirect(url_for('edit_rsvp', event_id=event_id))
+
             my_event = db.session.query(Event).filter_by(id=event_id).one()
 
             # redirects user to blank form if method type is GET
             return render_template('rsvp.html', event=my_event, user=session['user'])
     else:
         # user is not signed in, redirect to sign in
+
         return redirect(url_for('login'))
+
+@app.route('/edit_rsvp/<event_id>', methods=['GET', 'POST'])
+def edit_rsvp(event_id):
+    # check if user is signed in
+    if session.get('user'):
+
+        # checks if form response is of type POST
+        if request.method == 'POST':
+
+            user_id = session['user_id']
+
+            # get response to if the user is attending
+            status_str = request.form['status'].strip()
+            status = (status_str == "Y")
+
+            rsvp = db.session.query(RSVP).filter_by(event_id= event_id, user_id=session['user_id']).one()
+
+            rsvp.status = status
+
+            # commit change to db
+            db.session.add(rsvp)
+            db.session.commit()
+
+            # redirects back to events page ((may implement a success page))
+            return redirect(url_for('get_events'))
+        else:
+            my_rsvp = db.session.query(RSVP).filter_by(event_id=event_id, user_id=session['user_id'])
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+            # redirects user to blank form if method type is GET
+            return render_template('rsvp.html', event=my_event, user=session['user'], rsvp=my_rsvp)
+    else:
+        # user is not signed in, redirect to sign in
+
+        return redirect(url_for('login'))
+
 
 @app.route('/rate/<event_id>', methods=['GET', 'POST'])
 def rate(event_id):
