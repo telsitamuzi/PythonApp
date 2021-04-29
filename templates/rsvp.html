@@ -32,7 +32,13 @@
 
         <h2>RSVP</h2>
 
-       <form action="{{ url_for('rsvp', event_id = event.id) }}" method="POST">
+       {% if rsvp %}
+       <h3 style="text-align: center;">You currently have an RSVP for this Event, you can change it below</h3>
+
+        <form action="{{ url_for('edit_rsvp', event_id = event.id) }}" method="post">
+    {% else %}
+        <form action="{{ url_for('rsvp', event_id = event.id) }}" method="post">
+    {% endif %}
            <p><label>Will You Be Attending? Y/N</label></p>
            <p><input type="text" name="status" placeholder="Y" required></p>
            <p><input type="submit" value="RSVP"></p>

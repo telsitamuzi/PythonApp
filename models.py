@@ -61,8 +61,10 @@ class Rating(db.Model):
 class Invite(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     user_email = db.Column("user_email", db.String(50))
+    user_id = db.Column("user_id", db.Integer())
     event_id = db.column("event_id", db.Integer())
 
-    def __init__(self, user_email, event_id):
+    def __init__(self, user_email, user_id, event_id):
+        self.user_id = user_id
         self.user_email = user_email
         self.event_id = event_id
