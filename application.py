@@ -225,6 +225,21 @@ def not_done_yet():
 @app.route('/share', methods=['POST', 'GET'])
 def share():
 
+    # get email from share prompt
+    email = request.form['shareForm']
+
+    # get user id
+    user_id = session['user_id']
+
+    # get event id
+    event_id = null;
+
+    invitation = Invite(email, user_id, event_id)
+
+    # add new email object to database
+    db.session.add(invitation)
+    db.session.commit()
+
     return render_template('share.html')
 
 
