@@ -31,7 +31,7 @@
         <h2>Use this site to maintain and organize your events.</h2>
         <div class="formwrapper">
 
-            <form method="POST" action="/login">
+            <form id="login" method="POST" action="/login">
                 <h2 class="title">Login</h2>
                 <div class="form-field">{{ form.email.label }} {{ form.email }}
                     {% if form.email.errors %}
@@ -51,7 +51,7 @@
                     </ul>
                     {% endif %}
                 </div>
-                {{ form.submit }}
+                <button id="submit" action={{form.submit}}Submit</button>
             </form>
         </div>
     </body>
