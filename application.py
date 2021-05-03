@@ -226,13 +226,13 @@ def not_done_yet():
 def share():
 
     # get email from share prompt
-    email = request.form['shareForm']
+    email = request.form['emailValue']
 
     # get user id
     user_id = session['user_id']
 
     # get event id
-    event_id = null;
+    event_id = request.form['eventIdTag']
 
     invitation = Invite(email, user_id, event_id)
 

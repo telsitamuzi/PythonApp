@@ -1,9 +1,10 @@
 
-document.getElementById("shareButton").addEventListener("click", receiveEmail);
 
 function receiveEmail() {
   var email = window.prompt("Enter the email of the person you want to send the event to:");
   document.getElementById("emailValue").value = email;
+  var event_id = window.prompt("Enter the event ID of the event you want to send:");
+  document.getElementById("eventIdTag").value = event_id;
 }
 
 var slideIndex = 1;

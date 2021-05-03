@@ -7,6 +7,7 @@
         <title>UNCC Events App - View your Events</title>
         <!-- styles -->
          <link rel="stylesheet" href='static/main.css'>
+         <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
     </head>
     <body>
        <div class="nav-table">
@@ -35,13 +36,15 @@
         <table style="border: 2px solid black; margin: 0 auto">
             <tr>
                 <th></th>
+                <th></th>
                 <th style="border: 2px solid black">Event Title</th>
                 <th style="border: 2px solid black">Event Start Date</th>
                 <th style="border: 2px solid black">Event End Date</th>
             </tr>
             {% for event in events %}
             <tr>
-                <td style="border: 2px solid black"><a id="shareButton" href="{{ url_for('share') }}">Share</a></td>
+                <td style="border: 2px solid black" id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
+                <td style="border: 2px solid black"><button id="shareButton" style="margin:auto" onclick="receiveEmail()">Share</button></td>
                 <td style="border: 2px solid black"><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
                 <td style="border: 2px solid black">{{ event.start_date }}</td>
                 <td style="border: 2px solid black">{{ event.end_date }}</td>
@@ -89,8 +92,9 @@
 
         </table>
 
-        <form id="shareForm">
-            <input id="emailValue" type="text">
+        <form id="shareForm" hidden="true">
+            <input id="emailValue" name="emailValue" type="text">
+            <input id="eventIdTag" id="eventIdTag" type="number">
         </form>
 
     </body>
