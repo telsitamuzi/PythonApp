@@ -18,6 +18,11 @@ h2{
     margin-right: 34%;
 }
 
+.publicEvents{
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
 .nav-table a {
   float: left;
   color: #f2f2f2;
@@ -119,3 +124,11 @@ input[type=text], input[type=password] {
 button:hover {
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+
+/* Events Page */
+table{
+    background-color: Gold;
+    width: 50%;
+    padding: 10px 20px;
+}
+
