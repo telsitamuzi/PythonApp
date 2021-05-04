@@ -30,32 +30,31 @@
         </div>
         <h1>Create your own event!</h1>
     {% if event %}
-        <form action="{{ url_for('update_event', event_id = event.id) }}" method="post">
+        <form class="eventForm" action="{{ url_for('update_event', event_id = event.id) }}" method="post">
     {% else %}
-        <form action="new" method="post">
+        <form class="eventForm" action="new" method="post">
     {% endif %}
            <p><label>Title </label></p>
-            <p><input type="text" name="event_name" value="{% if event %} {{event.event_name}} {% endif %}"/></p>
+            <p><input id="Title" type="text" name="event_name" value="{% if event %} {{event.event_name}} {% endif %}"/></p>
             <p><label>Description </label></p>
             <p>
                 <textarea name="event_details"  rows="6" cols="0">
                     {% if event %}
-                        {{event.event_details}}
+                    {{event.event_details}}
                     {% else %}
-                        Add the description here ...
                     {% endif %}
                 </textarea>
             </p>
 
-            <p><label>Start Date </label></p>
-            <p><input type="text" name="start_date" value="{% if event %} {{event.start_date}} {% endif %}"/></p>
+            <p><label >Start Date </label></p>
+            <p><input class="Dates" type="date" name="start_date" value="{% if event %} {{event.start_date}} {% endif %}"/></p>
 
-            <p><label>End Date </label></p>
-            <p><input type="text" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
+            <p><label >End Date </label></p>
+            <p><input class="Dates" type="date" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
 
-            <p><label>Is this Event Public? Y/N</label></p>
-            <p><input type="text" name="public" value="{% if event %}
-                {% if event.public %} Y
+            <p><label>Public event?</label></p>
+            <p><input id="checkBox" type="checkbox" name="public" value="{% if event %}
+                {% if %} Y
                 {% else %} N
                 {% endif %}
             {% endif %}"/></p>
