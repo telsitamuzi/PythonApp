@@ -9,8 +9,6 @@
          <link rel="stylesheet" href='static/main.css'>
          <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
        <div class="nav-table">
@@ -66,7 +64,8 @@
             {% endfor %}
         </table>
 
-        <h2>Public Events From Other Users</h2>
+        <br>
+        <h2 class="publicEvents">Public Events From Other Users</h2>
        <table style="border: 2px solid black; margin: 0 auto">
              <tr>
                 <th style="border: 2px solid black">Event Title</th>
@@ -74,7 +73,7 @@
                 <th style="border: 2px solid black">Event End Date</th>
              </tr>
 
-             {% for public_event in public_events %}
+            {% for public_event in public_events %}
            <tr>
                 <td><a href="{{ url_for('get_event', event_id=public_event.id) }}">{{ public_event.event_name }}</a></td>
                 <td>{{ public_event.start_date }}</td>
