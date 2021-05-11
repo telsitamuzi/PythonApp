@@ -12,6 +12,7 @@ from models import Event as Event
 from models import RSVP as RSVP
 from models import Invite as Invite
 from models import Rating as Rating
+from models import Friend as Friend
 from forms import RegisterForm
 from forms import LoginForm
 from flask import session
@@ -364,5 +365,53 @@ def rate(event_id):
     else:
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
+
+@app.route('/friends/new', methods=['GET', 'POST'])
+def add_friend():
+    if session.get('user'):
+
+        if request.method == 'POST':
+
+            email = request.form["email"].strip()
+            friend = db.session.query(User).filter_by(email=email).first()
+
+            if friend is not None:
+
+                user_id = session['user_id']
+
+                new_friend = Friend(user_id, friend.id)
+
+                db.session.add(new_friend)
+                db.session.commit()
+
+                return redirect(url_for('get_friends'))
+
+
+        else:
+            return render_template('newfriend.html')
+
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
+
+@app.route('/friends')
+def get_friends():
+    if session.get('user'):
+
+        friends_of_user = db.session.query(Friend).filter_by(user_id=session['user_id']).all()
+
+        friend_ids = []
+
+        for friend in friends_of_user:
+            friend_ids.append(friend.id)
+
+        friends_list = db.session.query(User).filter(User.id.in_(friend_ids))
+
+        return render_template("friends.html", friends=friends_list)
+
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)

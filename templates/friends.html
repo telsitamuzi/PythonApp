@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Events App">
+        <title>UNCC Events App - View your Events</title>
+        <!-- styles -->
+         <link rel="stylesheet" href='static/main.css'>
+
+
+    </head>
+    <body>
+       <div class="nav-table">
+            <nav>
+
+                        <a href="{{ url_for('index') }}"> Home</a>
+                        <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
+
+                    {% if user %}
+
+                        <a href="{{ url_for('logout')}}">Logout</a>
+
+                    {% else %}
+
+                        <a href="{{ url_for('login') }}">Sign In</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+            </nav>
+        </div>
+        <h1>Welcome {{user}} Freinds page, here you will see all of your friends!</h1>
+
+        <a href="{{ url_for('add_friend') }}">new friend</a>
+
+        <h2>My Friends</h2>
+
+        {% if friends %}
+        <table class="EventsTable">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th >Email</th>
+                <th >View</th>
+            </tr>
+
+             {% for friend in friends %}
+
+            <tr>
+                <td>{{ friend.fName }}</td>
+                <td>{{ friend.lName }}</td>
+                <td>{{ friend.email }}</td>
+                <td>
+                         <a href="{{ url_for('not_done_yet')}}">
+                             <input type="submit" value="View"/>
+                         </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+            {% endif %}
+        </table>
+
+    </body>
+</html>
