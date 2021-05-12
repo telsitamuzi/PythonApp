@@ -386,6 +386,9 @@ def add_friend():
 
                 return redirect(url_for('get_friends'))
 
+            else:
+                return redirect(url_for('get_friends'))
+
 
         else:
             return render_template('newfriend.html')
