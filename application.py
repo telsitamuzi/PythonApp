@@ -12,6 +12,7 @@ from models import Event as Event
 from models import RSVP as RSVP
 from models import Invite as Invite
 from models import Rating as Rating
+from models import Friend as Friend
 from forms import RegisterForm
 from forms import LoginForm
 from flask import session
@@ -121,7 +122,6 @@ def get_event(event_id):
         my_ratings = db.session.query(Rating).filter_by(event_id=event_id)
 
         # create a comment form object
-
 
         return render_template('event.html', event=my_event, rsvps=my_rsvps, ratings=my_ratings, user=session['user'])
     else:
@@ -374,5 +374,102 @@ def rate(event_id):
     else:
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
+
+@app.route('/friends/new', methods=['GET', 'POST'])
+def add_friend():
+    if session.get('user'):
+
+        if request.method == 'POST':
+
+            email = request.form["email"].strip()
+            friend = db.session.query(User).filter_by(email=email).first()
+
+            if friend is not None:
+
+                user_id = session['user_id']
+
+                new_friend = Friend(user_id, friend.id)
+
+                db.session.add(new_friend)
+                db.session.commit()
+
+                return redirect(url_for('get_friends'))
+
+            else:
+                return redirect(url_for('get_friends'))
+
+
+        else:
+            return render_template('newfriend.html')
+
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
+
+@app.route('/friends')
+def get_friends():
+    if session.get('user'):
+
+        friends_of_user = db.session.query(Friend).filter_by(user_id=session['user_id']).all()
+
+        friend_ids = []
+
+        for friend in friends_of_user:
+            friend_ids.append(friend.id)
+
+        friends_list = db.session.query(User).filter(User.id.in_(friend_ids))
+
+        return render_template("friends.html", friends=friends_list)
+
+    else:
+        # user is not signed in, redirect to sign in
+        return redirect(url_for('login'))
+
+@app.route('/friend/<friend_id>')
+def show_friend(friend_id):
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+
+        friend_events = db.session.query(Event).filter_by(user_id=friend_id)
+        friend = db.session.query(User).filter_by(id=friend_id).one()
+
+
+        return render_template('friend.html', events=friend_events, user=session['user'], friend=friend)
+
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/search/<query>')
+def search_result(query):
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+
+        search = "%{}%".format(query)
+
+        search_result = db.session.query(Event).filter(Event.event_name.like(search))
+
+        return render_template('searchresult.html', events=search_result, user=session['user'])
+
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+        if request.method == 'POST':
+            query= request.form["searchBar"]
+            return redirect(url_for("search_result", query=query))
+
+        else:
+            return render_template('search.html', user=session['user'])
+
+    else:
+        return redirect(url_for('login'))
+
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)

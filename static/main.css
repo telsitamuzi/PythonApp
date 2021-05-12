@@ -18,6 +18,11 @@ h2{
     margin-right: 34%;
 }
 
+.publicEvents{
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
 .nav-table a {
   float: left;
   color: #f2f2f2;
@@ -36,6 +41,21 @@ h2{
   overflow: hidden;
   background-color: blue;
 }
+
+ input[type=submit] {
+  width: 100%;
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+ input[type=submit]:hover {
+  background-color: #45a049;
+}
+
 
 /* Registration page css stylization */
 .title{
@@ -58,7 +78,7 @@ h2{
 
 /* Login page */
 
-input[type=text], input[type=password] {
+.formwrapper input {
   width: 90%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -68,8 +88,8 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-.submit {
-  background-color: #4CAF50;
+#submit {
+  background-color: blue;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -102,6 +122,12 @@ input[type=text], input[type=password] {
     max-width: 100%;
     height: auto;
 }
+.imageStyling{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
 
 
 .inputButton {
@@ -119,3 +145,74 @@ input[type=text], input[type=password] {
 button:hover {
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+
+/* Events Page */
+.EventsTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.EventsTable td, .EventsTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.EventsTable tr:nth-child(even){background-color: #f2f2f2;}
+
+.EventsTable tr:hover {background-color: #ddd;}
+
+.EventsTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: blue;
+  color: gold;
+}
+
+#shareButton {
+    width: 100%;
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* New events page */
+ .eventForm {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: gold;
+  margin-left: 20%;
+}
+
+  .eventForm textarea {
+  resize: none;
+  width: 91.5%;
+  height: 100px;
+  }
+
+  #Title {
+  width: 91.5%;
+  height: 35px;
+  }
+
+ #checkBox {
+  height: 25px;
+  width: 25px;
+  background-color: grey;
+ }
+
+ .Dates {
+ width: 91.5%;
+ height: 35px;
+ }
+

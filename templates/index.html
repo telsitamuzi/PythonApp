@@ -24,7 +24,7 @@
 
         <form id="homepage">
         {% if user %}
-        <img src="{{ url_for('static' , filename='notes.png') }}">
+        <img class="imageStyling" src="{{ url_for('static' , filename='notes.png') }}">
         <a href="{{ url_for('new_event') }}"><button type="button" class="inputButton" >Create Event</button></a><br>
         <a href="{{ url_for('get_events') }}"><button type="button" class="inputButton">View Event</button></a><br>
         <a href="{{ url_for('logout') }}"><button type="button" class="inputButton">Logout</button></a><br>

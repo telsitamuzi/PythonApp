@@ -9,8 +9,6 @@
          <link rel="stylesheet" href='static/main.css'>
          <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
        <div class="nav-table">
@@ -19,6 +17,7 @@
                         <a href="{{ url_for('index') }}"> Home</a>
                         <a href="{{ url_for('get_events') }}">Events</a>
                         <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
 
                     {% if user %}
 
@@ -35,22 +34,26 @@
 
         <h2>My Events</h2>
 
-
-        <table style="border: 2px solid black; margin: 0 auto">
+        {% if events %}
+        <table class="EventsTable">
             <tr>
-                <th></th>
-                <th></th>
-                <th style="border: 2px solid black">Event Title</th>
-                <th style="border: 2px solid black">Event Start Date</th>
-                <th style="border: 2px solid black">Event End Date</th>
+                <th>Event ID</th>
+                <th>Want to share?</th>
+                <th >Event Title</th>
+                <th >Event Start Date</th>
+                <th >Event End Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
-            {% for event in events %}
+
+             {% for event in events %}
+
             <tr>
-                <td style="border: 2px solid black" id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
-                <td style="border: 2px solid black"><button id="shareButton" style="margin:auto" onclick="receiveEmail()">Share</button></td>
-                <td style="border: 2px solid black"><a id=eventName href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
-                <td style="border: 2px solid black" type="date" >{{ event.start_date }}</td>
-                <td style="border: 2px solid black" type="date" >{{ event.end_date }}</td>
+                <td id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
+                <td><button id="shareButton" style="margin:auto" onclick="receiveEmail()">Share</button></td>
+                <td ><a id=eventName href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
+                <td  type="date" >{{ event.start_date }}</td>
+                <td  type="date" >{{ event.end_date }}</td>
                 <td>
                          <a href="{{ url_for('update_event', event_id=event.id)}}">
                              <input type="submit" value="Edit"/>
@@ -64,17 +67,24 @@
             </tr>
 
             {% endfor %}
+            {% endif %}
         </table>
 
-        <h2>Public Events From Other Users</h2>
-       <table style="border: 2px solid black; margin: 0 auto">
+        <br>
+
+        <h2 class="publicEvents">Public Events From Other Users</h2>
+         {% if public_events %}
+       <table class="EventsTable">
+
              <tr>
-                <th style="border: 2px solid black">Event Title</th>
-                <th style="border: 2px solid black">Event Start Date</th>
-                <th style="border: 2px solid black">Event End Date</th>
+                <th >Event Title</th>
+                <th >Event Start Date</th>
+                <th >Event End Date</th>
+                 <th>RSVP</th>
+                 <th>Rate the event</th>
              </tr>
 
-             {% for public_event in public_events %}
+{% for public_event in public_events %}
            <tr>
                 <td><a href="{{ url_for('get_event', event_id=public_event.id) }}">{{ public_event.event_name }}</a></td>
                 <td>{{ public_event.start_date }}</td>
@@ -91,7 +101,7 @@
                </td>
            </tr>
              {% endfor %}
-
+             {% endif %}
 
        </table>
 
