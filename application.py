@@ -104,11 +104,20 @@ def get_events():
         my_events = db.session.query(Event).filter_by(user_id=session['user_id']).order_by(Event.id).all()
         public_events = db.session.query(Event).filter_by(public=True).order_by(Event.id).all()
 
+        my_invitations = db.session.query(Invite).filter_by(user_id=session['user_id'])
+        invited_event_ids = []
+
+        for invitation in my_invitations:
+            invited_event_ids.append(invitation.event_id)
+
+        invited_events = db.session.query(Event).filter(Event.id.in_(invited_event_ids))
+
         my_set = set(my_events)
         public_set = set(public_events)
         public_and_unique = list(public_set - my_set)
 
-        return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique)
+        return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique,
+                               invited_events=invited_events)
     else:
         return redirect(url_for('login'))
 

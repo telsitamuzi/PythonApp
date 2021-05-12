@@ -106,25 +106,27 @@
        </table>
 
        <h2>Invited Events</h2>
-       <table class="EventsTable" style="border: 2px solid black; margin: 0 auto">
+       <table class="EventsTable">
              <tr>
-                <th style="border: 2px solid black">Event Title</th>
-                <th style="border: 2px solid black">Event Start Date</th>
-                <th style="border: 2px solid black">Event End Date</th>
+                <th >Event Title</th>
+                <th >Event Start Date</th>
+                <th >Event End Date</th>
+                <th>RSVP</th>
+                 <th>Rate</th>
              </tr>
 
-             {% for invitedEvent in newInvites %}
+             {% for invited_event in invited_events %}
            <tr>
-                <td><a href="{{ url_for('events', event_id=invitedEvent.id) }}">{{ invitedEvent.event_name }}</a></td>
-                <td>{{ invitedEvent.start_date }}</td>
-                <td>{{ invitedEvent.end_date }}</td>
+                <td><a href="{{ url_for('get_events', event_id=invited_event.id) }}">{{ invited_event.event_name }}</a></td>
+                <td>{{ invited_event.start_date }}</td>
+                <td>{{ invited_event.end_date }}</td>
                <td>
-                   <a href="{{ url_for('rsvp', event_id=invitedEvent.id) }}">
+                   <a href="{{ url_for('rsvp', event_id=invited_event.id) }}">
                        <input type="submit" value="RSVP"/>
                    </a>
                </td>
                <td>
-                   <a href="{{ url_for('rate', event_id=invitedEvent.id) }}">
+                   <a href="{{ url_for('rate', event_id=invited_event.id) }}">
                        <input type="submit" value="Rate This Event"/>
                    </a>
                </td>
