@@ -428,7 +428,7 @@ def get_friends():
 
         friends_list = db.session.query(User).filter(User.id.in_(friend_ids))
 
-        return render_template("friends.html", friends=friends_list)
+        return render_template("friends.html", friends=friends_list, user=session['user'])
 
     else:
         # user is not signed in, redirect to sign in
