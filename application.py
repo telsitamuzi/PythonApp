@@ -402,14 +402,14 @@ def add_friend():
                 db.session.add(new_friend)
                 db.session.commit()
 
-                return redirect(url_for('get_friends'))
+                return redirect(url_for('get_friends', user=session['user']))
 
             else:
-                return redirect(url_for('get_friends'))
+                return redirect(url_for('get_friends', user=session['user']))
 
 
         else:
-            return render_template('newfriend.html')
+            return render_template('newfriend.html', user=session['user'])
 
     else:
         # user is not signed in, redirect to sign in
