@@ -108,7 +108,6 @@ def get_events():
         public_set = set(public_events)
         public_and_unique = list(public_set - my_set)
 
-
         return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique)
     else:
         return redirect(url_for('login'))
@@ -123,7 +122,6 @@ def get_event(event_id):
         my_ratings = db.session.query(Rating).filter_by(event_id=event_id)
 
         # create a comment form object
-
 
         return render_template('event.html', event=my_event, rsvps=my_rsvps, ratings=my_ratings, user=session['user'])
     else:
@@ -430,6 +428,37 @@ def show_friend(friend_id):
 
     else:
         return redirect(url_for('login'))
+
+@app.route('/search/<query>')
+def search_result(query):
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+
+        search = "%{}%".format(query)
+
+        search_result = db.session.query(Event).filter(Event.event_name.like(search))
+
+        return render_template('searchresult.html', events=search_result, user=session['user'])
+
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+        if request.method == 'POST':
+            query= request.form["searchBar"]
+            return redirect(url_for("search_result", query=query))
+
+        else:
+            return render_template('search.html', user=session['user'])
+
+    else:
+        return redirect(url_for('login'))
+
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)

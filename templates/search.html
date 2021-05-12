@@ -11,8 +11,10 @@
 
     </head>
 <body>
-    <form class="searchForm">
+    <form class="searchForm" action="{{ url_for('search')}}" method="POST" >
         <input type="text" name="searchBar">
+
+        <input type="submit" value="search">
     </form>
 
 </body>
