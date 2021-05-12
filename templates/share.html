@@ -9,30 +9,32 @@
          <link rel="stylesheet" href='../static/main.css'>
     </head>
     <body>
-       <nav>
-		<table>
-				<tr>
-                    <td><a href="{{ url_for('index') }}"> Home</a></td>
-                    <td><a href="{{ url_for('get_events') }}">Events</a></td>
-                    <td><a href="{{ url_for('new_event') }}">Create</a></td>
-                </tr>
-                {% if user %}
-                <tr>
-                    <td><a href="{{ url_for('logout')}}">Logout</a></td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td><a href="{{ url_for('login') }}">Sign In</a></td>
-                    <td><a href="{{ url_for('register') }}">Register</a></td>
-                </tr>
-                {% endif %}
-        </table>
+       <div class="nav-table">
+            <nav>
+
+                        <a href="{{ url_for('index') }}"> Home</a>
+                        <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
+                        <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
+
+                    {% if user %}
+
+                        <a href="{{ url_for('logout')}}">Logout</a>
+
+                    {% else %}
+
+                        <a href="{{ url_for('login') }}">Sign In</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+            </nav>
+        </div>
     </nav>
         <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
         <h2>Invite to an Event</h2>
 
-       <form action="{{ url_for('share', event_id=event_id) }}" method="POST">
+       <form class="eventForm" action="{{ url_for('share', event_id=event_id) }}" method="POST">
            <p><label>Enter the email of the friend you'd like to invite</label></p>
            <p><input type="email" name="email" required></p>
            <p><input type="submit" value="Add Friend"></p>

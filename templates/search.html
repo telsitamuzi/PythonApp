@@ -11,11 +11,32 @@
 
     </head>
 <body>
-    <form class="searchForm" action="{{ url_for('search')}}" method="POST" >
-        <input type="text" name="searchBar">
+       <div class="nav-table">
+            <nav>
 
-        <input type="submit" value="search">
-    </form>
+                        <a href="{{ url_for('index') }}"> Home</a>
+                        <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
+                        <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
+
+                    {% if user %}
+
+                        <a href="{{ url_for('logout')}}">Logout</a>
+
+                    {% else %}
+
+                        <a href="{{ url_for('login') }}">Sign In</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+            </nav>
+        </div>
+
+        <form class="searchForm" action="{{ url_for('search')}}" method="POST" >
+            <input type="text" name="searchBar">
+
+            <input type="submit" value="search">
+        </form>
 
 </body>
 </html>

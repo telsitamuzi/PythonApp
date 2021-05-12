@@ -16,6 +16,7 @@
 
                         <a href="{{ url_for('index') }}"> Home</a>
                         <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
                         <a href="{{ url_for('new_event') }}">Create</a>
                         <a href="{{ url_for('get_friends') }}">Friends</a>
 
@@ -30,9 +31,11 @@
                     {% endif %}
             </nav>
         </div>
-        <h1>Welcome {{user}} Freinds page, here you will see all of your friends!</h1>
+        <h1>Welcome {{user}} to the Friends page, here you will see all of your friends!</h1>
 
-        <a href="{{ url_for('add_friend') }}">new friend</a>
+       <div style="text-align: center">
+            <a class="inputButton" href="{{ url_for('add_friend') }}">Add a New Friend!</a>
+       </div>
 
         <h2>My Friends</h2>
 
