@@ -50,7 +50,11 @@
 
             <tr>
                 <td id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
-                <td><a href="{{ url_for('share', event_id=event.id) }}">Share</a></td>
+
+                <td><a href="{{ url_for('share', event_id=event.id) }}">
+                       <input type="submit" value="Share"/>
+                </a></td>
+
                 <td ><a id=eventName href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
                 <td  type="date" >{{ event.start_date }}</td>
                 <td  type="date" >{{ event.end_date }}</td>
