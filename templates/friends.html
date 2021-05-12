@@ -52,7 +52,7 @@
                 <td>{{ friend.lName }}</td>
                 <td>{{ friend.email }}</td>
                 <td>
-                         <a href="{{ url_for('not_done_yet')}}">
+                         <a href="{{ url_for('show_friend', friend_id=friend.id)}}">
                              <input type="submit" value="View"/>
                          </a>
                 </td>

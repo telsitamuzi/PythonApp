@@ -413,5 +413,20 @@ def get_friends():
         # user is not signed in, redirect to sign in
         return redirect(url_for('login'))
 
+@app.route('/friend/<friend_id>')
+def show_friend(friend_id):
+    # check if a user is saved in session
+    if session.get('user'):
+        # retrieve event from database
+
+        friend_events = db.session.query(Event).filter_by(user_id=friend_id)
+        friend = db.session.query(User).filter_by(id=friend_id).one()
+
+
+        return render_template('friend.html', events=friend_events, user=session['user'], friend=friend)
+
+    else:
+        return redirect(url_for('login'))
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
