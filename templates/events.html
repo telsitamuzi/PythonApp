@@ -50,7 +50,7 @@
 
             <tr>
                 <td id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
-                <td><button id="shareButton" style="margin:auto" onclick="receiveEmail()">Share</button></td>
+                <td><a href="{{ url_for('share' , event_id=event.id) }}">Share</a></td>
                 <td ><a id=eventName href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
                 <td  type="date" >{{ event.start_date }}</td>
                 <td  type="date" >{{ event.end_date }}</td>
@@ -106,7 +106,7 @@
        </table>
 
        <h2>Invited Events</h2>
-       <table style="border: 2px solid black; margin: 0 auto">
+       <table class="EventsTable" style="border: 2px solid black; margin: 0 auto">
              <tr>
                 <th style="border: 2px solid black">Event Title</th>
                 <th style="border: 2px solid black">Event Start Date</th>
@@ -133,11 +133,6 @@
 
 
         </table>
-
-        <form id="shareForm" hidden="true">
-            <input id="emailValue" name="emailValue" type="text">
-            <input id="eventIdTag" id="eventIdTag" type="number">
-        </form>
 
     </body>
 </html>
