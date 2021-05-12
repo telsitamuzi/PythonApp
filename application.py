@@ -230,23 +230,34 @@ def not_done_yet():
 @app.route('/share', methods=['POST', 'GET'])
 def share():
 
-    # get email from share prompt
-    email = request.form['emailValue']
+    # check if a user is saved in session
+    if session.get('user'):
 
-    # get user id
-    user_id = session['user_id']
+        # get email from share prompt
+        email = request.form['emailValue']
 
-    # get event id
-    event_id = request.form['eventIdTag']
+        # get user id
+        user_id = session['user_id']
 
-    invitation = Invite(email, user_id, event_id)
+        # get event id
+        event_id = request.form['eventIdTag']
 
-    # add new email object to database
-    db.session.add(invitation)
-    db.session.commit()
+        invitation = Invite(email, user_id, event_id)
 
-    return render_template('share.html')
+        # add new email object to database
+        db.session.add(invitation)
+        db.session.commit()
 
+        # get all invitations for the user being invited
+        newInvites = db.session.query(Invite).filter_by(user_email=email).all()
+
+        # get the event that the user is being invited to
+        # id = event id from Models
+        invitedEvent = db.session.query(Events).filter_by(id=event_id)
+
+        return render_template('events.html', newInvites=newInvites, invitedEvent=invitedEvent)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/rsvp/<event_id>', methods=['GET', 'POST'])
 def rsvp(event_id):

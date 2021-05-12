@@ -69,6 +69,7 @@ class Invite(db.Model):
         self.user_email = user_email
         self.event_id = event_id
 
+
 class Friend(db.Model):
     id = db.Column("id", db.Integer(), primary_key=True)
     user_id = db.Column("user_id", db.Integer)
@@ -77,3 +78,5 @@ class Friend(db.Model):
     def __init__(self, user_id, friend_id):
         self.user_id = user_id
         self.friend_id = friend_id
+
+
