@@ -227,35 +227,28 @@ def delete_event(event_id):
 def not_done_yet():
     return render_template('not_done_yet.html')
 
-@app.route('/share', methods=['POST', 'GET'])
-def share():
+@app.route('/share/<event_id>', methods=['POST', 'GET'])
+def share(event_id):
 
     # check if a user is saved in session
     if session.get('user'):
 
-        # get email from share prompt
-        email = request.form['emailValue']
+        if request.method == 'POST':
 
-        # get user id
-        user_id = session['user_id']
+            user_email = request.form['email']
 
-        # get event id
-        event_id = request.form['eventIdTag']
+            user = db.session.query(User).filter_by(email=user_email).first()
+            user_id = user.id
 
-        invitation = Invite(email, user_id, event_id)
+            invitation = Invite(user_email, user_id, event_id)
 
-        # add new email object to database
-        db.session.add(invitation)
-        db.session.commit()
+            # add new email object to database
+            db.session.add(invitation)
+            db.session.commit()
 
-        # get all invitations for the user being invited
-        newInvites = db.session.query(Invite).filter_by(user_email=email).all()
-
-        # get the event that the user is being invited to
-        # id = event id from Models
-        invitedEvent = db.session.query(Events).filter_by(id=event_id)
-
-        return render_template('events.html', newInvites=newInvites, invitedEvent=invitedEvent)
+            return redirect(url_for('get_events'), user=session['user'])
+        else:
+            return render_template('share.html', event_id=event_id, user=session['user'])
     else:
         return redirect(url_for('login'))
 
