@@ -53,11 +53,10 @@
             <p><input class="Dates" type="date" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
 
             <p><label>Public event?</label></p>
-            <p><input id="checkBox" type="checkbox" name="public" value="{% if event %}
-                {% if %} Y
-                {% else %} N
-                {% endif %}
-            {% endif %}"/></p>
+            <p><input id="checkBox" type="checkbox" name="public" {% if event %}
+            {% if event.public %} checked {% endif %}  {% endif %}
+
+            /></p>
 
 
 

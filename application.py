@@ -142,8 +142,11 @@ def new_event():
             #get event end date
             end_date = request.form['end_date']
 
-            public_str = request.form['public']
-            public = (public_str == 'Y')
+            #public_str = request.form['public']
+            #public = (public_str == 'Y')
+            public = False
+            if request.form.get('public'):
+                public = True
 
             new_record = Event(session['user_id'], event_name, event_details.strip(), start_date, end_date, public)
             db.session.add(new_record)
@@ -170,10 +173,13 @@ def update_event(event_id):
             start_date = request.form['start_date']
             end_date = request.form['end_date']
 
-            # cehcks updates to public / private
-            public_str = request.form['public']
-            public_str = public_str.strip()
-            public = (public_str == 'Y')
+            # checks updates to public / private
+            #public_str = request.form['public']
+            #public_str = public_str.strip()
+            #public = (public_str == 'Y')
+            public = False
+            if request.form.get('public') is not None:
+                public = True
 
             #get event
             event = db.session.query(Event).filter_by(id=event_id).one()
@@ -261,7 +267,8 @@ def rsvp(event_id):
 
             # get response to if the user is attending
             status_str = request.form['status'].strip()
-            status = (status_str == "Y")
+            status = request.form.get('public')
+
 
             # create RSVP object with given data
             rsvp_user=db.session.query(User).filter_by(id=session['user_id']).one()
