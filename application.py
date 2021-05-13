@@ -255,7 +255,7 @@ def share(event_id):
             db.session.add(invitation)
             db.session.commit()
 
-            return redirect(url_for('get_events'), user=session['user'])
+            return redirect(url_for('get_events', user=session['user']))
         else:
             return render_template('share.html', event_id=event_id, user=session['user'])
     else:
@@ -280,7 +280,7 @@ def rsvp(event_id):
 
             # get response to if the user is attending
             status_str = request.form['status'].strip()
-            status = request.form.get('public')
+            status = (status_str == 'Y')
 
 
             # create RSVP object with given data
@@ -393,6 +393,7 @@ def add_friend():
             email = request.form["email"].strip()
             friend = db.session.query(User).filter_by(email=email).first()
 
+
             if friend is not None:
 
                 user_id = session['user_id']
@@ -424,7 +425,7 @@ def get_friends():
         friend_ids = []
 
         for friend in friends_of_user:
-            friend_ids.append(friend.id)
+            friend_ids.append(friend.friend_id)
 
         friends_list = db.session.query(User).filter(User.id.in_(friend_ids))
 
