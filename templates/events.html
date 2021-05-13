@@ -122,7 +122,7 @@
 
              {% for invited_event in invited_events %}
            <tr>
-                <td><a href="{{ url_for('get_events', event_id=invited_event.id) }}">{{ invited_event.event_name }}</a></td>
+                <td><a href="{{ url_for('get_event', event_id=invited_event.id) }}">{{ invited_event.event_name }}</a></td>
                 <td>{{ invited_event.start_date }}</td>
                 <td>{{ invited_event.end_date }}</td>
                <td>
