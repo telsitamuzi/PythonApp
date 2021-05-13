@@ -104,11 +104,20 @@ def get_events():
         my_events = db.session.query(Event).filter_by(user_id=session['user_id']).order_by(Event.id).all()
         public_events = db.session.query(Event).filter_by(public=True).order_by(Event.id).all()
 
+        my_invitations = db.session.query(Invite).filter_by(user_id=session['user_id'])
+        invited_event_ids = []
+
+        for invitation in my_invitations:
+            invited_event_ids.append(invitation.event_id)
+
+        invited_events = db.session.query(Event).filter(Event.id.in_(invited_event_ids))
+
         my_set = set(my_events)
         public_set = set(public_events)
         public_and_unique = list(public_set - my_set)
 
-        return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique)
+        return render_template('events.html', events=my_events, user=session['user'], public_events=public_and_unique,
+                               invited_events=invited_events)
     else:
         return redirect(url_for('login'))
 
@@ -142,8 +151,11 @@ def new_event():
             #get event end date
             end_date = request.form['end_date']
 
-            public_str = request.form['public']
-            public = (public_str == 'Y')
+            #public_str = request.form['public']
+            #public = (public_str == 'Y')
+            public = False
+            if request.form.get('public'):
+                public = True
 
             new_record = Event(session['user_id'], event_name, event_details.strip(), start_date, end_date, public)
             db.session.add(new_record)
@@ -170,10 +182,13 @@ def update_event(event_id):
             start_date = request.form['start_date']
             end_date = request.form['end_date']
 
-            # cehcks updates to public / private
-            public_str = request.form['public']
-            public_str = public_str.strip()
-            public = (public_str == 'Y')
+            # checks updates to public / private
+            #public_str = request.form['public']
+            #public_str = public_str.strip()
+            #public = (public_str == 'Y')
+            public = False
+            if request.form.get('public') is not None:
+                public = True
 
             #get event
             event = db.session.query(Event).filter_by(id=event_id).one()
@@ -221,26 +236,30 @@ def delete_event(event_id):
 def not_done_yet():
     return render_template('not_done_yet.html')
 
-@app.route('/share', methods=['POST', 'GET'])
-def share():
+@app.route('/share/<event_id>', methods=['POST', 'GET'])
+def share(event_id):
 
-    # get email from share prompt
-    email = request.form['emailValue']
+    # check if a user is saved in session
+    if session.get('user'):
 
-    # get user id
-    user_id = session['user_id']
+        if request.method == 'POST':
 
-    # get event id
-    event_id = request.form['eventIdTag']
+            user_email = request.form['email']
 
-    invitation = Invite(email, user_id, event_id)
+            user = db.session.query(User).filter_by(email=user_email).first()
+            user_id = user.id
 
-    # add new email object to database
-    db.session.add(invitation)
-    db.session.commit()
+            invitation = Invite(user_email, user_id, event_id)
 
-    return render_template('share.html')
+            # add new email object to database
+            db.session.add(invitation)
+            db.session.commit()
 
+            return redirect(url_for('get_events', user=session['user']))
+        else:
+            return render_template('share.html', event_id=event_id, user=session['user'])
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/rsvp/<event_id>', methods=['GET', 'POST'])
 def rsvp(event_id):
@@ -261,7 +280,8 @@ def rsvp(event_id):
 
             # get response to if the user is attending
             status_str = request.form['status'].strip()
-            status = (status_str == "Y")
+            status = (status_str == 'Y')
+
 
             # create RSVP object with given data
             rsvp_user=db.session.query(User).filter_by(id=session['user_id']).one()
@@ -373,6 +393,7 @@ def add_friend():
             email = request.form["email"].strip()
             friend = db.session.query(User).filter_by(email=email).first()
 
+
             if friend is not None:
 
                 user_id = session['user_id']
@@ -382,14 +403,14 @@ def add_friend():
                 db.session.add(new_friend)
                 db.session.commit()
 
-                return redirect(url_for('get_friends'))
+                return redirect(url_for('get_friends', user=session['user']))
 
             else:
-                return redirect(url_for('get_friends'))
+                return redirect(url_for('get_friends', user=session['user']))
 
 
         else:
-            return render_template('newfriend.html')
+            return render_template('newfriend.html', user=session['user'])
 
     else:
         # user is not signed in, redirect to sign in
@@ -404,11 +425,11 @@ def get_friends():
         friend_ids = []
 
         for friend in friends_of_user:
-            friend_ids.append(friend.id)
+            friend_ids.append(friend.friend_id)
 
         friends_list = db.session.query(User).filter(User.id.in_(friend_ids))
 
-        return render_template("friends.html", friends=friends_list)
+        return render_template("friends.html", friends=friends_list, user=session['user'])
 
     else:
         # user is not signed in, redirect to sign in

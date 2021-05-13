@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="UNCC Events App">
-        <title>UNCC Events App - Share an Event</title>
+        <title>UNCC Events App - Share</title>
         <!-- styles -->
-         <link rel="stylesheet" href='static/main.css'>
+         <link rel="stylesheet" href='../static/main.css'>
     </head>
     <body>
        <div class="nav-table">
@@ -14,7 +14,9 @@
 
                         <a href="{{ url_for('index') }}"> Home</a>
                         <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
                         <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
 
                     {% if user %}
 
@@ -27,9 +29,16 @@
                     {% endif %}
             </nav>
         </div>
-        <h1>Event Invitation</h1>
+    </nav>
+        <h1>Welcome {{user}} to the Event Scheduling App!</h1>
 
-        <h2>Please enter the email of the user you would like to send the event too!</h2>
+        <h2>Invite to an Event</h2>
+
+       <form class="eventForm" action="{{ url_for('share', event_id=event_id) }}" method="POST">
+           <p><label>Enter the email of the friend you'd like to invite</label></p>
+           <p><input type="email" name="email" required></p>
+           <p><input type="submit" value="Add Friend"></p>
+       </form>
 
     </body>
 </html>

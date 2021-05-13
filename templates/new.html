@@ -15,7 +15,9 @@
 
                         <a href="{{ url_for('index') }}"> Home</a>
                         <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
                         <a href="{{ url_for('new_event') }}">Create</a>
+                        <a href="{{ url_for('get_friends') }}">Friends</a>
 
                     {% if user %}
 
@@ -53,11 +55,10 @@
             <p><input class="Dates" type="date" name="end_date" value="{% if event %} {{event.end_date}} {% endif %}"/></p>
 
             <p><label>Public event?</label></p>
-            <p><input id="checkBox" type="checkbox" name="public" value="{% if event %}
-                {% if %} Y
-                {% else %} N
-                {% endif %}
-            {% endif %}"/></p>
+            <p><input id="checkBox" type="checkbox" name="public" {% if event %}
+            {% if event.public %} checked {% endif %}  {% endif %}
+
+            /></p>
 
 
 

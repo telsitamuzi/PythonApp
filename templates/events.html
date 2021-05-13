@@ -16,6 +16,7 @@
 
                         <a href="{{ url_for('index') }}"> Home</a>
                         <a href="{{ url_for('get_events') }}">Events</a>
+                        <a href="{{ url_for('search') }}">Search</a>
                         <a href="{{ url_for('new_event') }}">Create</a>
                         <a href="{{ url_for('get_friends') }}">Friends</a>
 
@@ -50,7 +51,11 @@
 
             <tr>
                 <td id="eventId_{{event.id}}">Event ID: {{event.id}}</td>
-                <td><button id="shareButton" style="margin:auto" onclick="receiveEmail()">Share</button></td>
+
+                <td><a href="{{ url_for('share', event_id=event.id) }}">
+                       <input type="submit" value="Share"/>
+                </a></td>
+
                 <td ><a id=eventName href="{{ url_for('get_event', event_id=event.id) }}">{{ event.event_name }}</a></td>
                 <td  type="date" >{{ event.start_date }}</td>
                 <td  type="date" >{{ event.end_date }}</td>
@@ -103,12 +108,38 @@
              {% endfor %}
              {% endif %}
 
-        </table>
+       </table>
 
-        <form id="shareForm" hidden="true">
-            <input id="emailValue" name="emailValue" type="text">
-            <input id="eventIdTag" id="eventIdTag" type="number">
-        </form>
+       <h2>Invited Events</h2>
+       <table class="EventsTable">
+             <tr>
+                <th >Event Title</th>
+                <th >Event Start Date</th>
+                <th >Event End Date</th>
+                <th>RSVP</th>
+                 <th>Rate the event</th>
+             </tr>
+
+             {% for invited_event in invited_events %}
+           <tr>
+                <td><a href="{{ url_for('get_event', event_id=invited_event.id) }}">{{ invited_event.event_name }}</a></td>
+                <td>{{ invited_event.start_date }}</td>
+                <td>{{ invited_event.end_date }}</td>
+               <td>
+                   <a href="{{ url_for('rsvp', event_id=invited_event.id) }}">
+                       <input type="submit" value="RSVP"/>
+                   </a>
+               </td>
+               <td>
+                   <a href="{{ url_for('rate', event_id=invited_event.id) }}">
+                       <input type="submit" value="Rate This Event"/>
+                   </a>
+               </td>
+           </tr>
+             {% endfor %}
+
+
+        </table>
 
     </body>
 </html>
