@@ -482,4 +482,5 @@ def search():
 
 
 
-app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
+#app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
+app.run(host=os.getenv('IP', '0.0.0.0'), debug=True)
